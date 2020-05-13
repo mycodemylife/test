@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="UTF-8">
+    <title>登录</title>
+
+    <script type="text/javascript" src="/static/js/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="/static/js/bootstrap.min.js"></script>
+    <link type="text/css" rel="stylesheet" href="/static/css/self/login.css"/>
+    <link type="text/css" rel="stylesheet" href="/static/css/bootstrap.css"/>
+    <link type="text/css" rel="stylesheet" href="/static/css/animate.css"/>
+    <script type="text/javascript">
+        $(function () {
+            var height = $(window).height();
+            $('#submitBtn').attr("disabled", true);
+            $("#container").css("height", height + "px");
+            $('#username').blur(infoCheck);
+            $('#password').blur(infoCheck);
+            $('#code').blur(infoCheck);
+
+            var message = "[[${message}]]";
+            if(message != "") {
+                alert(message);
+            }
+        });
+    </script>
+</head>
+<body>
+
+    <div id="container">
+        <nav></nav>
+        <div id="main">
+
+            <div class="container">
+                <div class="row">
+                    <div id="loginForm" class="col-xs-4 col-xs-offset-8 col-lg-4 col-lg-offset-8 animate-box fadeInRight animated-fast">
+                        <h2>登录</h2>
+                        <form action="/api/v2/user/login" method="post" role="form">
+                            <div class="form-group">
+                                <label for="username">用户名</label>
+                                <input type="text" class="form-control" id="username" name="username" placeholder="用户名" />
+                            </div>
+                            <div class="form-group">
+                                <label for="password">密码</label>
+                                <input type="password" class="form-control" id="password" name="password" placeholder="密码" />
+                            </div>
+                            <div class="form-group" id="code-content">
+                                <label for="code">验证码</label>
+                                <input type="text" class="form-control" id="code" name="code" placeholder="验证码" />
+                                <img src="/auth/code" style="cursor:pointer;" id="authCode" onclick="reloadCode(this)">
+                            </div>
+                            <input type="submit" class="btn btn-primary" id="submitBtn" value="登录" />
+                            <a href="/toPage?pageName=register" id="registerBtn" class="">没有账号？前往注册</a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        function reloadCode() {
+            $("#authCode").prop('src','/auth/code?time=' + new Date().getMilliseconds());
+        }
+        
+        function infoCheck() {
+            var username = $('#username').val();
+            var password = $('#password').val();
+            var code = $('#code').val();
+            if(username == '' || password == '' || code == ''){
+                $('#submitBtn').attr("disabled", true);
+            }else{
+                $('#submitBtn').attr("disabled", false);
+            }
+        }
+    </script>
+
+</body>
+</html>

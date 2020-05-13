@@ -1,0 +1,72 @@
+<!--
+Author: W3layouts
+Author URL: http://w3layouts.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+-->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="UTF-8">
+    <title>注册</title>
+
+    <script type="text/javascript" src="/static/js/jquery-3.4.1.min.js"></script>
+    <link type="text/css" rel="stylesheet" href="/static/css/self/register.css"/>
+    <script type="text/javascript">
+        addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
+        function hideURLbar(){ window.scrollTo(0,1); }
+
+        $(function () {
+            var code = [[${code}]];
+            if(code != null || code != '0000'){
+                var message = "[[${message}]]"
+                alert(message);
+            }
+        })
+    </script>
+
+</head>
+<body style="background:url('/static/img/register_bg.jpg');">
+<div class="form">
+    <h1>注册</h1>
+    <div class="form-content">
+        <form action="/api/v2/user/register" method="post">
+            <div class="name">
+                <label>Username</label>
+                <input class="input1" type="text" name="username" placeholder="用户名" required="">
+            </div>
+            <div class="email">
+                <label>Gender</label>
+                <input class="input1" type="text" name="gender" placeholder="性别(男或女)" onchange="confirm(this)" required="">
+            </div>
+            <div class="email">
+                <label>Age</label>
+                <input class="input1" type="text" name="age" placeholder="年龄" required="">
+            </div>
+            <div class="pass1">
+                <label>Password</label>
+                <input class="input1" type="password" name="password" placeholder="**********" required="">
+            </div>
+            <div class="pass2">
+                <label>Re-Password</label>
+                <input class="input1" type="password" name="rePassword" placeholder="**********" required="">
+            </div>
+            <div class="signup">
+                <input type="submit" value="注册">
+            </div>
+        </form>
+    </div>
+
+    <script type="text/javascript">
+        function confirm(obj){
+            var gender = $(obj).val();
+            if(gender != '男' && gender != '女'){
+                $(obj).val('');
+                alert("性别只能输入\"男\"或\"女\"");
+            }
+        }
+    </script>
+</div>
+</body>
+</html>

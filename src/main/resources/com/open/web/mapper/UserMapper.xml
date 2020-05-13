@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.open.web.mapper.UserMapper">
+
+    <select id="getAllUser" resultType="com.open.web.bean.User">
+        select
+            u.id as id,
+            u.username as username,
+            u.gender as gender,
+            u.age as age
+        from user u
+    </select>
+
+    <select id="getUserByUsername" parameterType="java.lang.String" resultType="com.open.web.bean.User">
+        select
+            u.id as id,
+            u.username as username,
+            u.password as password,
+            u.gender as gender,
+            u.age as age
+        from
+            user u
+        where
+            u.username = #{username}
+    </select>
+
+    <insert id="addUser" parameterType="com.open.web.bean.User" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+        insert into user (
+            username,
+            password,
+            gender,
+            age
+        )values(
+            #{username},
+            #{password},
+            #{gender},
+            #{age}
+        )
+    </insert>
+
+</mapper>
